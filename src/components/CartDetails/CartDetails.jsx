@@ -12,7 +12,7 @@ const CartDetails = (props) => {
                         <span className="sub-title">Quantity</span>
                         <div>
                             <span role={"button"} onClick={() => {props.decreaseHandle(props.gameId)}} className="quantity-left">{"<"}</span>
-                            <span>{props.counter}</span>
+                            <span className="quantity-number">{props.counter}</span>
                             <span role={"button"} onClick={() => {props.increaseHandle(props.gameId)}} className="quantity-right">{">"}</span>
                         </div>
                     </div>
@@ -24,7 +24,9 @@ const CartDetails = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="cart-right"></div>
+            <div className="cart-right">
+                {props.counter} x {props.price} = {props.counter * props.price}
+            </div>
         </div>
     );
 };

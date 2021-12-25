@@ -24,6 +24,7 @@
 
 .cart-middle-top {
     font-weight: 700;
+    max-width: 70ch;
 }
 
 .cart-middle-bottom {
@@ -48,4 +49,21 @@
 .item-delete {
     margin: 0 0.5rem;
     cursor: pointer;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.quantity-number {
+    margin: 0 0.5rem;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.cart-right {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-weight: 500;
 }

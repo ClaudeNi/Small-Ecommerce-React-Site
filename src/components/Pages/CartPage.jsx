@@ -1,10 +1,11 @@
 import React from "react";
 import CartDetails from "../CartDetails/CartDetails";
+import Btn from "../Btn/Btn";
 import niStore from "../../api/niStore";
 import Spinner from "../Spinner/Spinner";
 
 class CartPage extends React.Component {
-    state = { cart: [], spinner: false };
+    state = { cart: [], price: 0, spinner: false, bought: false, cantBuy: false };
 
     componentDidMount() {
         this.grabCartDetails();
@@ -18,6 +19,7 @@ class CartPage extends React.Component {
                     gameId={item.id}
                     name={item.name}
                     counter={item.counter}
+                    price={item.price}
                     imgUrl={item.imgUrl}
                     increaseHandle={this.handleIncrease}
                     decreaseHandle={this.handleDecrease}
@@ -25,6 +27,16 @@ class CartPage extends React.Component {
                 />
             );
         });
+    };
+
+    displayPrice = () => {
+        let sum = 0;
+        for (let game of this.state.cart) {
+            for (let i = 0; i < game.counter; i++) {
+                sum += +game.price;
+            }
+        }
+        return <div>Price: {sum} &#8362;</div>;
     };
 
     grabCartDetails = () => {
@@ -48,7 +60,7 @@ class CartPage extends React.Component {
             for (let game of gamesData.data) {
                 for (let item of ids) {
                     if (game.id === item) {
-                        filteredList.push(game)
+                        filteredList.push(game);
                         filteredList[index].counter = counters[item];
                         index++;
                         continue;
@@ -65,11 +77,11 @@ class CartPage extends React.Component {
         const gameIndex = this.state.cart.findIndex((game) => game.id === id);
         const newCart = [...this.state.cart];
         newCart[gameIndex].counter++;
-        this.setState({cart: newCart})
+        this.setState({ cart: newCart });
         setTimeout(() => {
             this.updateCart();
         }, 0);
-    }
+    };
 
     handleDecrease = (id) => {
         const gameIndex = this.state.cart.findIndex((game) => game.id === id);
@@ -78,26 +90,26 @@ class CartPage extends React.Component {
         if (newCart[gameIndex].counter === 0) {
             this.handleDelete(id);
         } else {
-            this.setState({cart: newCart})
+            this.setState({ cart: newCart });
         }
         setTimeout(() => {
             this.updateCart();
         }, 0);
-    }
+    };
 
     handleDelete = (id) => {
         const gameIndex = this.state.cart.findIndex((game) => game.id === id);
         const newCart = [...this.state.cart];
         newCart.splice(gameIndex, 1);
-        this.setState({cart: newCart})
+        this.setState({ cart: newCart });
         setTimeout(() => {
             this.updateCart();
         }, 0);
-    }
+    };
 
     updateCart = () => {
         const myStorage = window.localStorage;
-        const oldCart = [...this.state.cart]
+        const oldCart = [...this.state.cart];
         const newCart = [];
         for (let game of oldCart) {
             for (let i = 0; i < game.counter; i++) {
@@ -105,7 +117,16 @@ class CartPage extends React.Component {
             }
         }
         myStorage.setItem("cart", newCart);
-    }
+    };
+
+    handleBuy = () => {
+        if (this.state.cart.length !== 0) {
+            this.setState({ cart: [], bought: true });
+            window.localStorage.setItem("cart", []);
+        } else {
+            this.setState({cantBuy: true, bought: false})
+        }
+    };
 
     render() {
         if (this.state.spinner) {
@@ -115,6 +136,12 @@ class CartPage extends React.Component {
             <div className="cart-page">
                 <h1>Cart</h1>
                 {this.displayCart()}
+                <div className="cart-bottom">
+                    <Btn text="Buy now" clickHandle={this.handleBuy} />
+                    {this.displayPrice()}
+                </div>
+                {this.state.bought && <div> Thank you for buying!</div>}
+                {this.state.cantBuy && <div> You have nohting in your cart!</div>}
             </div>
         );
     }

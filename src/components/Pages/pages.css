@@ -62,3 +62,11 @@
     align-items: center;
     width: 100%;
 }
+
+.cart-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-weight: 500;
+}
