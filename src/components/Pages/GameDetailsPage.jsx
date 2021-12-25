@@ -23,14 +23,11 @@ class GameDetailsPage extends React.Component {
 
     addToCart = () => {
         const myStorage = window.localStorage;
-        if (myStorage.cart === undefined) {
-            myStorage.cart = [];
-        }
         const newCart = [...myStorage.getItem("cart").split(",")];
         if (newCart[0] === "") {
             newCart.shift();
         }
-        newCart.push(this.state.gameData.name);
+        newCart.push(this.state.id);
         myStorage.setItem("cart", newCart);
     };
 

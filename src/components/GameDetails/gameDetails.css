@@ -2,13 +2,14 @@
     background: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     border: 1px #ccc solid;
     border-radius: 20px;
     margin: 0.5rem;
     text-align: center;
     padding-bottom: 0.5rem;
+    min-height: 30vh;
 }
 
 .game-details-container img {
@@ -18,6 +19,8 @@
 
 .game-details-container .game-details-name {
     color: #000;
+    max-width: 40ch;
+    word-wrap: break-word;
     font-size: 1.2rem;
     font-weight: 500;
     padding: 0.5rem 1rem;

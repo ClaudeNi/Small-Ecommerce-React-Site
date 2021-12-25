@@ -41,7 +41,7 @@ class GamesPage extends React.Component {
     render() {
         if (this.state.spinner) {
             return <Spinner />
-        } else
+        }
         return (
             <div className="games-page-container">
                 <div className="games-pages-items-container">
