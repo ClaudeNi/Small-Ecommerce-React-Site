@@ -25,7 +25,7 @@ const CartDetails = (props) => {
                 </div>
             </div>
             <div className="cart-right">
-                {props.counter} x {props.price} = {props.counter * props.price}
+                {props.counter} x {props.price} = {props.counter * props.price} &#8362;
             </div>
         </div>
     );
